@@ -88,51 +88,53 @@ Admin	Full access (CRUD users & records)
 
 ## Setup Instructions
 
-1 Clone Repository
+1. Clone Repository
 
-git clone https://github.com/Mohamed-Fasidh/finance-dashboard-backend.git
+  git clone https://github.com/Mohamed-Fasidh/finance-dashboard-backend.git
 
-cd finance-dashboard-backend
+  cd finance-dashboard-backend
 
-2 Create Virtual Environment
+2. Create Virtual Environment
 
-python -m venv venv
+  python -m venv venv
 
-venv\Scripts\activate   # Windows
+  venv\Scripts\activate   # Windows
 
-3 Install Dependencies
+3. Install Dependencies
 
-pip install -r requirements.txt
+  pip install -r requirements.txt
 
-4 Configure Database
+4. Configure Database
 
-Update your database connection in .env or config:
+  Update your database connection in .env or config:
 
-DATABASE_URL=postgresql://username:password@localhost:5432/finance_db
+  DATABASE_URL=postgresql://username:password@localhost:5432/finance_db
 
-5 Run Server
+5. Run Server
 
-uvicorn app.main:app --reload
+  uvicorn app.main:app --reload
 
-6 Open API Docs
+6. Open API Docs
+
 http://127.0.0.1:8000/docs
 
 ## Authentication Flow
 
-Register user
+1. Register user
 
-Login → get JWT token
+2. Login → get JWT token
 
-Click Authorize in Swagger
+3. Click Authorize in Swagger
 
-Paste token:
+4. Paste token:
 
-Bearer <your_token>
+   Bearer <your_token>
 
 ## API Endpoints
-Auth
+## Auth
 
 POST /auth/register → Register user
+
 POST /auth/login → Login & get token
 
 ## Users
@@ -161,23 +163,35 @@ GET /dashboard/monthly-trends
 ## Design Decisions
 
 -JWT Authentication for stateless security
+
 -Role-based access control for authorization
+
 -SQLAlchemy ORM for scalable DB operations
+
 -PostgreSQL for reliable persistence
+
 -User-level data isolation for security
 
 ## Assumptions
 
 -Users are uniquely identified by email
+
 -Admin role has full access
+
 -Records are linked to users via user_id
+
 -Simplified validation for demo purposes
 
 ## Future Improvements
 
 -Pagination for records
+
 -Advanced filtering & search
+
 -Refresh tokens
+
 -Docker deployment
+
 -Unit & integration tests
+
 -API rate limiting
