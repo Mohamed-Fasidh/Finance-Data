@@ -90,7 +90,7 @@ Admin	Full access (CRUD users & records)
 
 1. Clone Repository
 
-        git clone https://github.com/Mohamed-Fasidh/finance-dashboard-backend.git
+        git clone https://github.com/Mohamed-Fasidh/Finance-Data.git
 
         cd finance-dashboard-backend
 
@@ -106,17 +106,17 @@ Admin	Full access (CRUD users & records)
 
 4. Configure Database
 
-  Update your database connection in .env or config:
+   Update your database connection in .env or config:
 
-  DATABASE_URL=postgresql://username:password@localhost:5432/finance_db
+        DATABASE_URL=postgresql://username:password@localhost:5432/finance_db
 
 5. Run Server
 
-  uvicorn app.main:app --reload
+        uvicorn app.main:app --reload
 
 6. Open API Docs
 
-http://127.0.0.1:8000/docs
+        http://127.0.0.1:8000/docs
 
 ## Authentication Flow
 
