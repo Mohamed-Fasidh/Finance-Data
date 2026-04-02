@@ -46,36 +46,42 @@ app/
 
 ## Features
 
--Authentication & Authorization
+## Authentication & Authorization
 
--JWT-based login system
+JWT-based login system
 
--Secure password hashing
+Secure password hashing
 
--Role-based access control (RBAC)
+Role-Based Access Control (RBAC)
 
 ## User Management
 
--Create users
+Create users
 
--Assign roles (Admin, Analyst, Viewer)
+Assign roles (Admin, Analyst, Viewer)
 
--Active/inactive status
+Manage active/inactive status
 
 ## Financial Records
 
 Create, update, delete records
-Filter by:
-Type (income/expense)
+Fields:
+Amount
+Type (income / expense)
 Category
 Date
+Notes
+Filtering:
+By type
+By category
+By date
 
 ## Dashboard APIs
 
 Total income
 Total expenses
 Net balance
-Category breakdown
+Category-wise breakdown
 Monthly trends
 Recent activity
 
