@@ -135,7 +135,7 @@ app/
 
 ```
 git clone https://github.com/Mohamed-Fasidh/Finance-Data.git
-cd finance-dashboard-backend
+cd Finance-Data
 ```
 
 ### 2. Create Virtual Environment
