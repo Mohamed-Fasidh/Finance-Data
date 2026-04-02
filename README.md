@@ -1,203 +1,251 @@
-## Finance Dashboard Backend
+#  Finance Dashboard Backend
 
 A production-style backend system for managing financial records with role-based access control (RBAC), JWT authentication, and PostgreSQL persistence.
 
-## Overview
+---
+
+##  Overview
 
 This project implements a backend for a finance dashboard where users can:
 
-Manage financial records (income/expense)
-View analytics and summaries
-Access data based on roles (Admin, Analyst, Viewer)
+* Manage financial records (income / expense)
+* View analytics and summaries
+* Access data based on roles (**Admin, Analyst, Viewer**)
 
 The system is designed with clean architecture, secure authentication, and scalable data handling.
 
-## Tech Stack
+---
 
-Backend: FastAPI
+##  Tech Stack
 
-Database: PostgreSQL
+* **Backend:** FastAPI
+* **Database:** PostgreSQL
+* **ORM:** SQLAlchemy
+* **Authentication:** JWT (JSON Web Tokens)
+* **Password Hashing:** bcrypt (via Passlib)
+* **API Docs:** Swagger UI (FastAPI built-in)
 
-ORM: SQLAlchemy
+---
 
-Authentication: JWT (JSON Web Tokens)
+##  Project Structure
 
-Password Hashing: bcrypt (via Passlib)
-
-API Docs: Swagger UI (FastAPI built-in)
-
-## Project Structure
+```
 app/
-│── core/
+├── core/
 │   ├── auth.py
 │   ├── security.py
 │   ├── database.py
+│   ├── deps.py
+│   └── response.py
 │
-│── models/
-│   ├── db_models.py
+├── models/
+│   └── db_models.py
 │
-│── routes/
+├── schemas/
+│   ├── user.py
+│   └── record.py
+│
+├── services/
+│   ├── user_service.py
+│   └── record_service.py
+│
+├── routes/
 │   ├── auth.py
 │   ├── users.py
 │   ├── records.py
-│   ├── dashboard.py
+│   └── dashboard.py
 │
-│── main.py
+└── main.py
+```
 
-## Features
+---
 
-## Authentication & Authorization
+##  Features
 
-JWT-based login system
+###  Authentication & Authorization
 
-Secure password hashing
+* JWT-based login system
+* Secure password hashing
+* Role-Based Access Control (RBAC)
 
-Role-Based Access Control (RBAC)
+---
 
-## User Management
+###  User Management
 
-Create users
+* Create users
+* Assign roles (**Admin, Analyst, Viewer**)
+* Manage active/inactive status
 
-Assign roles (Admin, Analyst, Viewer)
+---
 
-Manage active/inactive status
+###  Financial Records
 
-## Financial Records
+* Create, update, delete records
 
-Create, update, delete records
-Fields:
-Amount
-Type (income / expense)
-Category
-Date
-Notes
-Filtering:
-By type
-By category
-By date
+**Fields:**
 
-## Dashboard APIs
+* Amount
+* Type (income / expense)
+* Category
+* Date
+* Notes
 
-Total income
-Total expenses
-Net balance
-Category-wise breakdown
-Monthly trends
-Recent activity
+**Filtering:**
 
-## Access Control
+* By type
+* By category
+* By date
 
-Role	Permissions
-Viewer	View dashboard only
-Analyst	View records + analytics
-Admin	Full access (CRUD users & records)
+---
 
-## Setup Instructions
+###  Dashboard APIs
 
-1. Clone Repository
+* Total income
+* Total expenses
+* Net balance
+* Category-wise breakdown
+* Monthly trends
+* Recent activity
 
-        git clone https://github.com/Mohamed-Fasidh/Finance-Data.git
+---
 
-        cd finance-dashboard-backend
+##  Access Control
 
-2. Create Virtual Environment
+| Role    | Permissions                        |
+| ------- | ---------------------------------- |
+| Viewer  | View records & dashboard only      |
+| Analyst | View records + analytics           |
+| Admin   | Full access (CRUD users & records) |
 
-        python -m venv venv
+---
 
-        venv\Scripts\activate   # Windows
+##  API Documentation
 
-3. Install Dependencies
+* Swagger UI:
+  http://127.0.0.1:8000/docs
 
-        pip install -r requirements.txt
+* Public (ngrok example):
+  https://your-ngrok-url/docs
 
-4. Configure Database
+---
 
-   Update your database connection in .env or config:
+##  Setup Instructions
 
-        DATABASE_URL=postgresql://username:password@localhost:5432/finance_db
+### 1. Clone Repository
 
-5. Run Server
+```
+git clone https://github.com/Mohamed-Fasidh/Finance-Data.git
+cd finance-dashboard-backend
+```
 
-        uvicorn app.main:app --reload
+### 2. Create Virtual Environment
 
-6. Open API Docs
+```
+python -m venv venv
+venv\Scripts\activate
+```
 
-        http://127.0.0.1:8000/docs
+### 3. Install Dependencies
 
-## Authentication Flow
+```
+pip install -r requirements.txt
+```
+
+### 4. Configure Database
+
+Update `.env` or config:
+
+```
+DATABASE_URL=postgresql://username:password@localhost:5432/finance_db
+```
+
+### 5. Run Server
+
+```
+uvicorn app.main:app --reload
+```
+
+### 6. Open API Docs
+
+```
+http://127.0.0.1:8000/docs
+```
+
+---
+
+##  Authentication Flow
 
 1. Register user
-
 2. Login → get JWT token
-
-3. Click Authorize in Swagger
-
+3. Click **Authorize** in Swagger
 4. Paste token:
 
-   Bearer <your_token>
+```
+Bearer <your_token>
+```
 
-## API Endpoints
-## Auth
+---
 
-POST /auth/register → Register user
+##  API Endpoints
 
-POST /auth/login → Login & get token
+###  Auth
 
-## Users
-POST /users/ → Create user (Admin only)
+* `POST /auth/register` → Register user
+* `POST /auth/login` → Login & get token
 
-GET /users/ → Get users
+---
 
-PUT /users/{id} → Update user
+###  Users
 
-## Records
-POST /records/ → Create record
+* `POST /users/` → Create user (Admin only)
+* `GET /users/` → Get users
+* `PUT /users/{id}` → Update user
 
-GET /records/ → Get records
+---
 
-PUT /records/{id} → Update record
+###  Records
 
-DELETE /records/{id} → Delete record
+* `POST /records/` → Create record
+* `GET /records/` → Get records
+* `PUT /records/{id}` → Update record
+* `DELETE /records/{id}` → Delete record
 
-## Dashboard
-GET /dashboard/summary
+---
 
-GET /dashboard/recent
+###  Dashboard
 
-GET /dashboard/monthly-trends
+* `GET /dashboard/summary`
+* `GET /dashboard/recent`
+* `GET /dashboard/monthly-trends`
 
-## Design Decisions
+---
 
--JWT Authentication for stateless security
+##  Design Decisions
 
--Role-based access control for authorization
+* JWT authentication for stateless security
+* Role-based access control for authorization
+* SQLAlchemy ORM for scalable DB operations
+* PostgreSQL for reliable persistence
+* User-level data isolation for security
 
--SQLAlchemy ORM for scalable DB operations
+---
 
--PostgreSQL for reliable persistence
+##  Assumptions
 
--User-level data isolation for security
+* Users are uniquely identified by email
+* Admin role has full access
+* Records are linked via `user_id`
+* Simplified validation for demo purposes
 
-## Assumptions
+---
 
--Users are uniquely identified by email
+##  Future Improvements
 
--Admin role has full access
+* Pagination for records
+* Advanced filtering & search
+* Refresh tokens
+* Docker deployment
+* Unit & integration tests
+* API rate limiting
 
--Records are linked to users via user_id
-
--Simplified validation for demo purposes
-
-## Future Improvements
-
--Pagination for records
-
--Advanced filtering & search
-
--Refresh tokens
-
--Docker deployment
-
--Unit & integration tests
-
--API rate limiting
+---
