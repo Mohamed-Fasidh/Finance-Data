@@ -90,19 +90,19 @@ Admin	Full access (CRUD users & records)
 
 1. Clone Repository
 
-  git clone https://github.com/Mohamed-Fasidh/finance-dashboard-backend.git
+        git clone https://github.com/Mohamed-Fasidh/finance-dashboard-backend.git
 
-  cd finance-dashboard-backend
+        cd finance-dashboard-backend
 
 2. Create Virtual Environment
 
-  python -m venv venv
+        python -m venv venv
 
-  venv\Scripts\activate   # Windows
+        venv\Scripts\activate   # Windows
 
 3. Install Dependencies
 
-  pip install -r requirements.txt
+        pip install -r requirements.txt
 
 4. Configure Database
 
