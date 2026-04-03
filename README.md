@@ -196,6 +196,7 @@ cd Finance-Data
 
 
 python -m venv venv
+
 venv\Scripts\activate
 
 
