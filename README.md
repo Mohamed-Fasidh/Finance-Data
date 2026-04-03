@@ -215,6 +215,7 @@ Create `.env` file:
 
 
 DATABASE_URL=postgresql://username:password@localhost:5432/finance_db
+
 SECRET_KEY=your_secret_key
 
 
