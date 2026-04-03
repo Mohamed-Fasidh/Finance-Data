@@ -243,7 +243,9 @@ http://127.0.0.1:8000/docs
 
 
 DATABASE_URL=<Internal Render DB URL>
+
 SECRET_KEY=<your_secret>
+
 PYTHON_VERSION=3.10.13
 
 
@@ -285,6 +287,7 @@ SSL Mode = require
 
 
 SELECT * FROM users;
+
 SELECT * FROM records;
 
 
