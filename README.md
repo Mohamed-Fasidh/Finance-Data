@@ -1,9 +1,3 @@
-# Finance Dashboard Backend
-
-A backend system for managing financial records with role-based access control, JWT authentication, and PostgreSQL persistence.
-
----
-
 ## Overview
 
 This project implements a backend service for a finance dashboard where users can:
@@ -72,27 +66,22 @@ app/
 ### Authentication & Authorization
 
 - JWT-based login system  
-- Secure password hashing using bcrypt  
+- Secure password hashing  
 - Role-based access control  
 
 ---
 
 ### User Management
 
-- Create and manage users  
+- Create users  
 - Assign roles (Admin, Analyst, Viewer)  
-- Maintain active/inactive status  
+- Manage active/inactive status  
 
 ---
 
 ### Financial Records
 
-Supports full CRUD operations:
-
-- Create records  
-- View records  
-- Update records  
-- Delete records  
+- Create, update, delete records  
 
 Fields:
 
@@ -102,7 +91,7 @@ Fields:
 - Date  
 - Notes  
 
-Filtering support:
+Filtering:
 
 - By type  
 - By category  
@@ -111,8 +100,6 @@ Filtering support:
 ---
 
 ### Dashboard APIs
-
-Provides aggregated data:
 
 - Total income  
 - Total expenses  
@@ -135,8 +122,8 @@ Provides aggregated data:
 
 ## Authentication Flow
 
-1. Register a user  
-2. Login to receive JWT token  
+1. Register user  
+2. Login to get JWT token  
 3. Click **Authorize** in Swagger  
 4. Enter:
 
@@ -150,33 +137,33 @@ Bearer <your_token>
 
 ### Auth
 
-- `POST /auth/register` — Register user  
-- `POST /auth/login` — Login and get token  
+- POST /auth/register  
+- POST /auth/login  
 
 ---
 
 ### Users
 
-- `POST /users/` — Create user (Admin only)  
-- `GET /users/` — Get users  
-- `PUT /users/{id}` — Update user  
+- POST /users/ (Admin only)  
+- GET /users/  
+- PUT /users/{id}  
 
 ---
 
 ### Records
 
-- `POST /records/` — Create record (Admin only)  
-- `GET /records/` — Get records (role-based access)  
-- `PUT /records/{id}` — Update record (Admin only)  
-- `DELETE /records/{id}` — Delete record (Admin only)  
+- POST /records/ (Admin only)  
+- GET /records/  
+- PUT /records/{id}  
+- DELETE /records/{id}  
 
 ---
 
 ### Dashboard
 
-- `GET /dashboard/summary`  
-- `GET /dashboard/recent`  
-- `GET /dashboard/monthly-trends`  
+- GET /dashboard/summary  
+- GET /dashboard/recent  
+- GET /dashboard/monthly-trends  
 
 ---
 
@@ -196,7 +183,6 @@ cd Finance-Data
 
 
 python -m venv venv
-
 venv\Scripts\activate
 
 
@@ -210,23 +196,20 @@ pip install -r requirements.txt
 
 ---
 
-### 4. Configure Environment Variables
+### 4. Environment Variables
 
 Create `.env` file:
 
 
 DATABASE_URL=postgresql://username:password@localhost:5432/finance_db
-
 SECRET_KEY=your_secret_key
 
 
 ---
+
 ### Secret Key
 
-- Used for signing JWT tokens  
-- Must be kept secure and never exposed publicly  
-
-You can generate a secure key using Python:
+Generate secure key:
 
 
 python -c "import secrets; print(secrets.token_hex(32))"
@@ -242,7 +225,7 @@ uvicorn app.main:app --reload
 
 ---
 
-### 6. Access API Docs
+### 6. API Docs
 
 
 http://127.0.0.1:8000/docs
@@ -250,78 +233,107 @@ http://127.0.0.1:8000/docs
 
 ---
 
-## Deployment
+## Deployment (Render)
 
-- Deployed on Render  
-- Uses managed PostgreSQL instance  
+- Backend deployed on Render  
+- PostgreSQL hosted on Render  
 - Environment variables configured securely  
-- Public API accessible via Swagger  
+
+### Environment Variables
+
+
+DATABASE_URL=<Internal Render DB URL>
+SECRET_KEY=<your_secret>
+PYTHON_VERSION=3.10.13
+
 
 ---
+
+## Connecting PostgreSQL to pgAdmin
+
+1. Copy **External Database URL** from Render  
+
+Example:
+
+
+postgresql://user:password@host:5432/db_name
+
+
+---
+
+### pgAdmin Setup
+
+- Host: host  
+- Port: 5432  
+- Database: db_name  
+- Username: user  
+- Password: password  
+
+---
+
+### SSL Configuration
+
+Set:
+
+
+SSL Mode = require
+
+
+---
+
+### Run Queries
+
+
+SELECT * FROM users;
+SELECT * FROM records;
+
+
+---
+
 ## Render Free Tier Limitation
 
-This project is deployed on Render using the free tier.
-
-- The service automatically goes to sleep after ~15 minutes of inactivity :contentReference[oaicite:0]{index=0}  
-- The first request after inactivity may take **20–30 seconds** due to cold start :contentReference[oaicite:1]{index=1}  
-- Subsequent requests are fast and respond normally  
-
-This behavior is expected in the free tier and does not affect functionality.
-
-For production use, upgrading to a paid plan removes this delay.
+- Service sleeps after ~15 minutes inactivity  
+- First request may take 20–30 seconds  
+- Subsequent requests are fast  
 
 ---
 
 ## Design Decisions
 
-- JWT used for stateless authentication  
-- Role-based access enforced via dependency checks  
-- SQLAlchemy used for structured database operations  
-- PostgreSQL used for reliable persistence  
-- Data isolation implemented per user  
+- JWT authentication  
+- Role-based access control  
+- SQLAlchemy ORM  
+- PostgreSQL persistence  
+- User-level data isolation  
 
 ---
 
 ## Assumptions
 
-- Email is unique per user  
-- Admin has full control  
-- Records are linked via user_id  
-- Simplified validation for demonstration  
+- Email is unique  
+- Admin has full access  
+- Records linked via user_id  
 
 ---
 
-## Validation and Error Handling
+## Validation & Error Handling
 
-- Input validation using Pydantic schemas  
+- Input validation using Pydantic  
 - Proper HTTP status codes  
-- Clear error messages for invalid operations  
+- Clear error messages  
 
 ---
 
 ## Future Improvements
 
-- Refresh token mechanism  
-- Advanced filtering and search  
-- Pagination metadata  
+- Refresh tokens  
+- Advanced filtering  
 - Docker support  
-- Unit and integration testing  
+- Testing  
 - Rate limiting  
-
----
-
-## Evaluation Coverage
-
-- Backend structure and modular design  
-- Role-based access control implementation  
-- CRUD operations with filtering  
-- Dashboard aggregation logic  
-- PostgreSQL data persistence  
-- Validation and error handling  
-- API documentation and deployment  
 
 ---
 
 ## Author
 
-Mohamed Fasidh  
+Mohamed Fasidh
