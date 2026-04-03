@@ -1,251 +1,300 @@
-#  Finance Dashboard Backend
+# Finance Dashboard Backend
 
-A production-style backend system for managing financial records with role-based access control (RBAC), JWT authentication, and PostgreSQL persistence.
-
----
-
-##  Overview
-
-This project implements a backend for a finance dashboard where users can:
-
-* Manage financial records (income / expense)
-* View analytics and summaries
-* Access data based on roles (**Admin, Analyst, Viewer**)
-
-The system is designed with clean architecture, secure authentication, and scalable data handling.
+A backend system for managing financial records with role-based access control, JWT authentication, and PostgreSQL persistence.
 
 ---
 
-##  Tech Stack
+## Overview
 
-* **Backend:** FastAPI
-* **Database:** PostgreSQL
-* **ORM:** SQLAlchemy
-* **Authentication:** JWT (JSON Web Tokens)
-* **Password Hashing:** bcrypt (via Passlib)
-* **API Docs:** Swagger UI (FastAPI built-in)
+This project implements a backend service for a finance dashboard where users can:
+
+- Manage financial records (income and expenses)
+- View analytics and summaries
+- Access data based on role permissions
+
+The system is designed with clear structure, secure authentication, and reliable data handling.
 
 ---
 
-##  Project Structure
+## Tech Stack
 
-```
+- Backend: FastAPI  
+- Database: PostgreSQL (Render Cloud DB)  
+- ORM: SQLAlchemy  
+- Authentication: JWT (JSON Web Tokens)  
+- Password Hashing: bcrypt (Passlib)  
+- API Documentation: Swagger UI  
+
+---
+
+## Live API
+
+- Swagger Documentation:  
+  https://finance-data-1.onrender.com/docs
+
+---
+
+## Project Structure
+
+
 app/
 ├── core/
-│   ├── auth.py
-│   ├── security.py
-│   ├── database.py
-│   ├── deps.py
-│   └── response.py
+│ ├── auth.py
+│ ├── security.py
+│ ├── database.py
+│ ├── deps.py
+│ └── response.py
 │
 ├── models/
-│   └── db_models.py
+│ └── db_models.py
 │
 ├── schemas/
-│   ├── user.py
-│   └── record.py
+│ ├── user.py
+│ └── record.py
 │
 ├── services/
-│   ├── user_service.py
-│   └── record_service.py
+│ ├── user_service.py
+│ └── record_service.py
 │
 ├── routes/
-│   ├── auth.py
-│   ├── users.py
-│   ├── records.py
-│   └── dashboard.py
+│ ├── auth.py
+│ ├── users.py
+│ ├── records.py
+│ └── dashboard.py
 │
 └── main.py
-```
+
 
 ---
 
-##  Features
+## Features
 
-###  Authentication & Authorization
+### Authentication & Authorization
 
-* JWT-based login system
-* Secure password hashing
-* Role-Based Access Control (RBAC)
-
----
-
-###  User Management
-
-* Create users
-* Assign roles (**Admin, Analyst, Viewer**)
-* Manage active/inactive status
+- JWT-based login system  
+- Secure password hashing using bcrypt  
+- Role-based access control  
 
 ---
 
-###  Financial Records
+### User Management
 
-* Create, update, delete records
-
-**Fields:**
-
-* Amount
-* Type (income / expense)
-* Category
-* Date
-* Notes
-
-**Filtering:**
-
-* By type
-* By category
-* By date
+- Create and manage users  
+- Assign roles (Admin, Analyst, Viewer)  
+- Maintain active/inactive status  
 
 ---
 
-###  Dashboard APIs
+### Financial Records
 
-* Total income
-* Total expenses
-* Net balance
-* Category-wise breakdown
-* Monthly trends
-* Recent activity
+Supports full CRUD operations:
 
----
+- Create records  
+- View records  
+- Update records  
+- Delete records  
 
-##  Access Control
+Fields:
 
-| Role    | Permissions                        |
-| ------- | ---------------------------------- |
-| Viewer  | View records & dashboard only      |
-| Analyst | View records + analytics           |
-| Admin   | Full access (CRUD users & records) |
+- Amount  
+- Type (income / expense)  
+- Category  
+- Date  
+- Notes  
 
----
+Filtering support:
 
-##  API Documentation
-
-* Swagger UI:
-  http://127.0.0.1:8000/docs
-
-* Public (ngrok example):
-  https://your-ngrok-url/docs
+- By type  
+- By category  
+- Pagination support  
 
 ---
 
-##  Setup Instructions
+### Dashboard APIs
+
+Provides aggregated data:
+
+- Total income  
+- Total expenses  
+- Net balance  
+- Category-wise totals  
+- Monthly trends  
+- Recent activity  
+
+---
+
+## Access Control
+
+| Role    | Permissions                          |
+|---------|--------------------------------------|
+| Viewer  | View records and dashboard           |
+| Analyst | View records and analytics           |
+| Admin   | Full access (users + records CRUD)   |
+
+---
+
+## Authentication Flow
+
+1. Register a user  
+2. Login to receive JWT token  
+3. Click **Authorize** in Swagger  
+4. Enter:
+
+
+Bearer <your_token>
+
+
+---
+
+## API Endpoints
+
+### Auth
+
+- `POST /auth/register` — Register user  
+- `POST /auth/login` — Login and get token  
+
+---
+
+### Users
+
+- `POST /users/` — Create user (Admin only)  
+- `GET /users/` — Get users  
+- `PUT /users/{id}` — Update user  
+
+---
+
+### Records
+
+- `POST /records/` — Create record (Admin only)  
+- `GET /records/` — Get records (role-based access)  
+- `PUT /records/{id}` — Update record (Admin only)  
+- `DELETE /records/{id}` — Delete record (Admin only)  
+
+---
+
+### Dashboard
+
+- `GET /dashboard/summary`  
+- `GET /dashboard/recent`  
+- `GET /dashboard/monthly-trends`  
+
+---
+
+## Setup Instructions (Local)
 
 ### 1. Clone Repository
 
-```
+
 git clone https://github.com/Mohamed-Fasidh/Finance-Data.git
+
 cd Finance-Data
-```
+
+
+---
 
 ### 2. Create Virtual Environment
 
-```
+
 python -m venv venv
 venv\Scripts\activate
-```
+
+
+---
 
 ### 3. Install Dependencies
 
-```
+
 pip install -r requirements.txt
-```
 
-### 4. Configure Database
 
-Update `.env` or config:
+---
 
-```
+### 4. Configure Environment Variables
+
+Create `.env` file:
+
+
 DATABASE_URL=postgresql://username:password@localhost:5432/finance_db
-```
+SECRET_KEY=your_secret_key
+
+
+---
 
 ### 5. Run Server
 
-```
+
 uvicorn app.main:app --reload
-```
 
-### 6. Open API Docs
 
-```
+---
+
+### 6. Access API Docs
+
+
 http://127.0.0.1:8000/docs
-```
+
 
 ---
 
-##  Authentication Flow
+## Deployment
 
-1. Register user
-2. Login → get JWT token
-3. Click **Authorize** in Swagger
-4. Paste token:
-
-```
-Bearer <your_token>
-```
+- Deployed on Render  
+- Uses managed PostgreSQL instance  
+- Environment variables configured securely  
+- Public API accessible via Swagger  
 
 ---
 
-##  API Endpoints
+## Design Decisions
 
-###  Auth
-
-* `POST /auth/register` → Register user
-* `POST /auth/login` → Login & get token
-
----
-
-###  Users
-
-* `POST /users/` → Create user (Admin only)
-* `GET /users/` → Get users
-* `PUT /users/{id}` → Update user
+- JWT used for stateless authentication  
+- Role-based access enforced via dependency checks  
+- SQLAlchemy used for structured database operations  
+- PostgreSQL used for reliable persistence  
+- Data isolation implemented per user  
 
 ---
 
-###  Records
+## Assumptions
 
-* `POST /records/` → Create record
-* `GET /records/` → Get records
-* `PUT /records/{id}` → Update record
-* `DELETE /records/{id}` → Delete record
-
----
-
-###  Dashboard
-
-* `GET /dashboard/summary`
-* `GET /dashboard/recent`
-* `GET /dashboard/monthly-trends`
+- Email is unique per user  
+- Admin has full control  
+- Records are linked via user_id  
+- Simplified validation for demonstration  
 
 ---
 
-##  Design Decisions
+## Validation and Error Handling
 
-* JWT authentication for stateless security
-* Role-based access control for authorization
-* SQLAlchemy ORM for scalable DB operations
-* PostgreSQL for reliable persistence
-* User-level data isolation for security
+- Input validation using Pydantic schemas  
+- Proper HTTP status codes  
+- Clear error messages for invalid operations  
 
 ---
 
-##  Assumptions
+## Future Improvements
 
-* Users are uniquely identified by email
-* Admin role has full access
-* Records are linked via `user_id`
-* Simplified validation for demo purposes
+- Refresh token mechanism  
+- Advanced filtering and search  
+- Pagination metadata  
+- Docker support  
+- Unit and integration testing  
+- Rate limiting  
+
+---
+
+## Evaluation Coverage
+
+- Backend structure and modular design  
+- Role-based access control implementation  
+- CRUD operations with filtering  
+- Dashboard aggregation logic  
+- PostgreSQL data persistence  
+- Validation and error handling  
+- API documentation and deployment  
 
 ---
 
-##  Future Improvements
+## Author
 
-* Pagination for records
-* Advanced filtering & search
-* Refresh tokens
-* Docker deployment
-* Unit & integration tests
-* API rate limiting
-
----
+Mohamed Fasidh  
