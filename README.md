@@ -32,55 +32,30 @@ The system is designed with clear structure, secure authentication, and reliable
 
 
 app/
-
 ├── core/
-
 │ ├── auth.py
-
 │ ├── security.py
-
 │ ├── database.py
-
 │ ├── deps.py
-
 │ └── response.py
-
 │
-
 ├── models/
-
 │ └── db_models.py
-
 │
-
 ├── schemas/
-
 │ ├── user.py
-
 │ └── record.py
-
 │
-
 ├── services/
-
 │ ├── user_service.py
-
 │ └── record_service.py
-
 │
-
 ├── routes/
-
 │ ├── auth.py
-
 │ ├── users.py
-
 │ ├── records.py
-
 │ └── dashboard.py
-
 │
-
 └── main.py
 
 
