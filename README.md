@@ -221,6 +221,18 @@ SECRET_KEY=your_secret_key
 
 
 ---
+### Secret Key
+
+- Used for signing JWT tokens  
+- Must be kept secure and never exposed publicly  
+
+You can generate a secure key using Python:
+
+
+python -c "import secrets; print(secrets.token_hex(32))"
+
+
+---
 
 ### 5. Run Server
 
