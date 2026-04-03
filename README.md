@@ -244,6 +244,19 @@ http://127.0.0.1:8000/docs
 - Public API accessible via Swagger  
 
 ---
+## Render Free Tier Limitation
+
+This project is deployed on Render using the free tier.
+
+- The service automatically goes to sleep after ~15 minutes of inactivity :contentReference[oaicite:0]{index=0}  
+- The first request after inactivity may take **20–30 seconds** due to cold start :contentReference[oaicite:1]{index=1}  
+- Subsequent requests are fast and respond normally  
+
+This behavior is expected in the free tier and does not affect functionality.
+
+For production use, upgrading to a paid plan removes this delay.
+
+---
 
 ## Design Decisions
 
