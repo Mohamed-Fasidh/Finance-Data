@@ -68,6 +68,7 @@ def get_records(
 
     offset = (page - 1) * limit
     records = query.offset(offset).limit(limit).all()
+    db.commit()
     db.refresh(records)
     return success_response(records)
 
