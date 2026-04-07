@@ -14,10 +14,6 @@ app.include_router(records.router, prefix="/records", tags=["Records"])
 app.include_router(dashboard.router, prefix="/dashboard", tags=["Dashboard"])
 app.include_router(auth.router, prefix="/auth", tags=["Auth"])
 
-@app.get("/")
-def root():
-    return {"message": "Finance Backend Running"}
-
 @app.api_route("/", methods=["GET", "HEAD"])
 def root(request: Request):
     return {"message": "Finance Backend Running"}
