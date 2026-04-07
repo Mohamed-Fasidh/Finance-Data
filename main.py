@@ -4,6 +4,7 @@ from app.routes import users, records, dashboard
 from app.routes import auth
 from app.core.database import Base, engine
 from app.models import db_models
+from fastapi import Request
 
 Base.metadata.create_all(bind=engine)
 app = FastAPI(title="Finance Dashboard Backend")
@@ -15,4 +16,8 @@ app.include_router(auth.router, prefix="/auth", tags=["Auth"])
 
 @app.get("/")
 def root():
+    return {"message": "Finance Backend Running"}
+
+@app.api_route("/", methods=["GET", "HEAD"])
+def root(request: Request):
     return {"message": "Finance Backend Running"}
